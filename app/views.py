@@ -2,8 +2,13 @@ from flask import render_template, flash, redirect
 from app import app
 from pymongo import MongoClient
 from .forms import UpdateRestaurant
+import os
 
-mongoServer = MongoClient()
+mongoIP = os.environ['MONGO_PORT_27017_TCP_ADDR']
+mongoPort = os.environ['MONGO_PORT_27017_TCP_PORT']
+
+
+mongoServer = MongoClient('mongodb://{}:{}'.format(mongoIP, mongoPort))
 mongoDB = mongoServer.fatasslist
 restaurants = mongoDB.restaurants
 
