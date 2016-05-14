@@ -1,0 +1,77 @@
+{% extends "main.html" %}
+{% block sidebar %}
+            {% for location in locations -%}
+            <li>
+              <a href="#" onclick="filterLocation('{{ location }}')">{{ location }}</a>
+            </li>
+            {%- endfor %}
+{% endblock %}
+{% block body %}
+          <h2 class="sub-header">Places I've Been</h2>
+          <div class="table-responsive noHorizontalScroll" id="fatass">
+            <input class="search" placeholder="Search..."/>
+            <table class="table table-striped" style="overflow-x: hidden">
+              <thead>
+                <tr>
+                  <th onclick='fatassList.sort("name")'>Name</th>
+                  <th>Category</th>
+                  <th onclick='fatassList.sort("price")'>Price</th>
+                  <th style="width: 100px" onclick='fatassList.sort("ambiance")'>Ambiance</th>
+                  <th style="width: 100px" onclick='fatassList.sort("food")'>Food</th>
+                  <th style="width: 25%">What I Consumed</th>
+                  <th style="width: 25%">Commentary</th>
+                  <th onclick='fatassList.sort("vegangluten")'>V/GF?</th>
+                  <th onclick='fatassList.sort("location")'>Location</th>
+                </tr>
+              </thead>
+              <tbody class="list">{% for restaurant in restaurants -%}
+                <tr>
+                  <td class="name">
+                    {{ restaurant.name }}
+                  </td>
+                  <td class="category">
+                    {{ restaurant.category|join(' / ') }}
+                  </td>
+                  <td class="price">
+                    <div class="hidden">{{ restaurant.price }}</div>
+                    {% for i in range(0, restaurant.price|int, 1) %}${% endfor %}
+                  </td>
+                  <td class="ambiance">
+                    <div class="hidden">{{ restaurant.ambiance }}</div>
+                    {% for i in range(0, restaurant.ambiance|int) -%}
+                    <span class="typcn typcn-star-full-outline"></span>
+                    {%- endfor %}{% if (restaurant.ambiance/0.5) is odd -%}
+                    <span class="typcn typcn-star-half-outline"></span>
+                    {%- endif %}
+                  </td>
+                  <td class="food">
+                    <div class="hidden">{{ restaurant.food }}</div>
+                    {% for i in range(0, restaurant.food|int) -%}
+                    <span class="typcn typcn-heart-full-outline"></span>
+                    {%- endfor %}{% if (restaurant.food/0.5) is odd -%}
+                    <span class="typcn typcn-heart-half-outline"></span>
+                    {%- endif %}
+                  </td>
+                  <td class="tried">
+                    {% for tried in restaurant.tried -%}
+                    {{ tried }}<br/>
+                    {%- endfor %}
+                  </td>
+                  <td class="commentary">
+                    {{ restaurant.commentary }}
+                  </td>
+                  <td class="vegengluten">
+                    {% if restaurant.vegan_gluten -%}
+                    <span class="typcn typcn-tick-outline"><div class="hidden">true</div></span>
+                    {% else %}
+                    <span class="typcn typcn-times-outline"><div class="hidden">false</div></span>
+                    {%- endif %}
+                  </td>
+                  <td class="location">
+                    {{- restaurant.location -}}
+                  </td>
+                </tr>{%- endfor %}
+              </tbody>
+            </table>
+          </div>
+{% endblock %}

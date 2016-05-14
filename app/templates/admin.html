@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% block sidebar %}
+            <li>
+              <a href="/admin/None">Add New Restaurant</a>
+            </li>
+            {% for restaurant in restaurants -%}
+            <li>
+              <a href="/admin/{{ restaurant.name }}">{{ restaurant.name }}</a>
+            </li>
+            {%- endfor %}
+{% endblock %}
+{% block body %}
+          <h1 class="sub-header">Admin Page</h2>
+          <h2>Please select a restaurant on the left, or click "Add New Restaurant"</h2>
+{% endblock %}

@@ -1,0 +1,13 @@
+argparse
+Flask
+Flask-WTF
+itsdangerous
+Jinja2
+MarkupSafe
+pip
+pymongo
+redis
+setuptools
+Werkzeug
+wsgiref
+WTForms

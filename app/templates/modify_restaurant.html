@@ -1,0 +1,56 @@
+{% extends "main.html" %}
+{% block sidebar %}
+            <li>
+              <a href="/admin/None">Add New Restaurant</a>
+            </li>
+            {% for restaurant in restaurants -%}
+            <li>
+              <a href="/admin/{{ restaurant.name }}">{{ restaurant.name }}</a>
+            </li>
+            {%- endfor %}
+{% endblock %}
+{% block body %}
+          <h1 class="sub-header">{{ restaurant.name }}</h2>
+          <form action="" method="post" name="updateForm" id="updateForm">
+            {{ form.hidden_tag() }}
+            {% if form.errors %}
+                <ul class="errors">
+                    {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+                        {% for error in field_errors %}
+                            <li>{{ form[field_name].label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {{ form.orig_name }}
+            Name:<br/>
+            {{ form.rest_name }}<br/><br/>
+            Categories:<br/>
+            {{ form.categories }}<br/>
+            Please place each category on a new line.<br/><br/>
+            Price:<br/>
+            {{ form.price }}<br/>
+            Please enter a number between 1 and 5<br/><br/>
+            Ambiance:<br/>
+            {{ form.ambiance }}<br/>
+            Please enter a number between 0.5 and 5<br/><br/>
+            Food Rating:<br/>
+            {{ form.food }}<br/>
+            Please enter a number between 0.5 and 5<br/><br/>
+            What I Consumed:<br/>
+            {{ form.consumed }}<br/>
+            Please place each item on a new line<br/><br/>
+            Commentary:<br/>
+            {{ form.commentary }}<br/><br/>
+            Location:<br/>
+            {{ form.location }}<br/><br/>
+            Vegan or Gluten Free Options:<br/>
+            {{ form.vegangluten }}<br/><br/>
+            Honorable Mention:<br/>
+            {{ form.honorablemention }}<br/><br/>
+            Champion:<br/>
+            {{ form.champion }}<br/><br/>
+            <input type="submit" value="Update"/>
+            {{ form.deleteField }}
+          </form>
+{% endblock %}
