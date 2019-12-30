@@ -17,7 +17,7 @@ restaurants = mongoDB.restaurants
 @app.route('/index')
 def index():
     locationsArray = list(restaurants.distinct('location'))
-    restaurantsArray = list(restaurants.find())
+    restaurantsArray = list(restaurants.find({"$or":[ {"closed":{"$exists": False}}, {"closed":{"$eq": True}}]}) )
     return render_template('mainlist.html',
                            locations=locationsArray,
                            restaurants=restaurantsArray)
