@@ -15,4 +15,5 @@ class UpdateRestaurant(Form):
     honorablemention = BooleanField('honorablemention')
     champion = BooleanField('champion')
     location = StringField('location', validators=[DataRequired()])
+    closed = BooleanField('closed')
     deleteField = SubmitField('Delete (CANNOT BE UNDONE)')
