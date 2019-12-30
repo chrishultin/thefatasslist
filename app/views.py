@@ -70,7 +70,9 @@ def restaurant_page(name="None"):
                         'vegan-gluten': form.vegangluten.data,
                         'honorablemention': form.honorablemention.data,
                         'halloffame': form.champion.data,
-                        'location': form.location.data })
+                        'location': form.location.data,
+                        'closed': bool(form.closed.data)
+            })
         else:
             print 'Updating Restaurant'
             result = restaurants.update_one(
@@ -87,7 +89,8 @@ def restaurant_page(name="None"):
                         'vegan-gluten': form.vegangluten.data,
                         'honorablemention': form.honorablemention.data,
                         'halloffame': form.champion.data,
-                        'location': form.location.data
+                        'location': form.location.data,
+                        'closed': bool(form.closed.data)
                     }
                 })
         return redirect('/admin')
@@ -104,7 +107,8 @@ def restaurant_page(name="None"):
         form.vegangluten.data = False
         form.honorablemention.data = False
         form.champion.data = False
-        form.location.data = 'Austin, TX'
+        form.location.data = 'Denver, CO'
+        form.closed.data = False
     else:
         form.orig_name.data = restaurant['name']
         form.rest_name.data = restaurant['name']
@@ -118,6 +122,7 @@ def restaurant_page(name="None"):
         form.honorablemention.data = restaurant['honorablemention']
         form.champion.data = restaurant['halloffame']
         form.location.data = restaurant['location']
+        form.closed.data = restaurant['closed']
     #categoriesString =
     return render_template('modify_restaurant.html',
                            restaurant=restaurant,
