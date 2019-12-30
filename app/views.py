@@ -40,6 +40,15 @@ def champions():
                            locations=locationsArray,
                            restaurants=restaurantsArray)
 
+@app.route('/closed')
+def closed():
+    locationsArray = list(restaurants.distinct('location'))
+    restaurantsArray = list(restaurants.find({ 'closed': True }))
+    #restaurantsArray = list(restaurants.find())
+    return render_template('mainlist.html',
+                           locations=locationsArray,
+                           restaurants=restaurantsArray)
+
 @app.route('/admin')
 def admin():
     restaurantsArray = list(restaurants.find())
